@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.5</version>
+		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.example</groupId>
@@ -26,9 +26,23 @@
 		<tag/>
 		<url/>
 	</scm>
+
 	<properties>
+		<!-- only one property for java version => maven.compiler.source+target -->
 		<java.version>21</java.version>
+
+		<!-- tuning version dependency managed by springboot -->
+		<!-- dictionnary here: https://docs.spring.io/spring-boot/appendix/dependency-versions/properties.html -->
+		<postgresql.version>42.7.4</postgresql.version>
+
+		<!-- custom properties -->
+		<myapp.artifact.name>cityapi</myapp.artifact.name>
+		<myapp.artifact.tag>dev-1.1</myapp.artifact.tag>
+		<myapp.jdbcdriver.groupid>org.postgresql</myapp.jdbcdriver.groupid>
+		<myapp.jdbcdriver.artifactid>postgresql</myapp.jdbcdriver.artifactid>
 	</properties>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -60,8 +74,8 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>${myapp.jdbcdriver.groupid}</groupId>
+			<artifactId>${myapp.jdbcdriver.artifactid}</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -92,6 +106,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>${myapp.artifact.name}-${myapp.artifact.tag}</finalName>
 	</build>
 
 </project>
