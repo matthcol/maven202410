@@ -5,4 +5,4 @@ COPY ./artifact/cityapi.jar /app
 
 EXPOSE 8080
 
-CMD ["java", "-Dspring.profiles.active=pg", "-jar", "cityapi.jar"]
+CMD ["java", "-jar", "cityapi.jar"]

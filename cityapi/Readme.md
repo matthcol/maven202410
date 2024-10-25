@@ -50,3 +50,13 @@ In sub-directory docker:
 docker compose -p cityh2 up -d
 docker compose -p citypg -f .\docker-compose.yml -f .\docker.compose.pg.yml up -d
 ```
+
+## Install
+```
+mvn install:install-file  -Dfile=.\target\cityapi.jar `
+                          -DgroupId=org.example `
+                          -DartifactId=cityapi `
+                          -Dversion=2.0 `
+                          -Dpackaging=jar `
+                          -DlocalRepositoryPath=.\docker\artifact
+```

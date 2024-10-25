@@ -38,8 +38,12 @@
 		<!-- custom properties -->
 		<myapp.artifact.name>cityapi</myapp.artifact.name>
 		<myapp.artifact.tag>dev-1.1</myapp.artifact.tag>
-		<myapp.jdbcdriver.groupid>org.postgresql</myapp.jdbcdriver.groupid>
-		<myapp.jdbcdriver.artifactid>postgresql</myapp.jdbcdriver.artifactid>
+		<myapp.jdbcdriver.groupid>com.h2database</myapp.jdbcdriver.groupid>
+		<myapp.jdbcdriver.artifactid>h2</myapp.jdbcdriver.artifactid>
+
+<!--		<myapp.jdbc.url>jdbc:h2:mem:dbcity</myapp.jdbc.url>-->
+<!--		<myapp.jdbc.username>sa</myapp.jdbc.username>-->
+<!--		<myapp.jdbc.password></myapp.jdbc.password>-->
 	</properties>
 
 
@@ -69,11 +73,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>${myapp.jdbcdriver.groupid}</groupId>
 			<artifactId>${myapp.jdbcdriver.artifactid}</artifactId>
 			<scope>runtime</scope>
@@ -87,6 +86,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 	</dependencies>
 
@@ -106,7 +110,36 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>${myapp.artifact.name}-${myapp.artifact.tag}</finalName>
+		<finalName>${myapp.artifact.name}</finalName>
+<!--		<finalName>${myapp.artifact.name}-${myapp.artifact.tag}</finalName>-->
+		<resources>
+			<resource>
+				<directory>src/main/resources-filtered</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<filters>
+			<filter>pom-jdbc-h2.properties</filter>
+		</filters>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>pg</id>
+			<properties>
+				<myapp.jdbcdriver.groupid>org.postgresql</myapp.jdbcdriver.groupid>
+				<myapp.jdbcdriver.artifactid>postgresql</myapp.jdbcdriver.artifactid>
+			</properties>
+			<build>
+				<filters>
+					<filter>pom-jdbc-pg.properties</filter>
+				</filters>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
