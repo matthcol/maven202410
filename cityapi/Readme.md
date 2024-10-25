@@ -42,3 +42,11 @@ jar tvf .\target\cityapi-maria.jar | Select-String -Pattern postgres
 
 mvn spring-boot:run '-Dspring-boot.run.profiles=maria'
 ```
+
+
+## Docker
+In sub-directory docker:
+```
+docker compose -p cityh2 up -d
+docker compose -p citypg -f .\docker-compose.yml -f .\docker.compose.pg.yml up -d
+```

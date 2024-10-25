@@ -1,0 +1,17 @@
+
+services:
+  db:
+    image: mariadb:${DB_VERSION:-11}
+    restart: unless-stopped
+    ports:
+      - ${DB_PORT:-3306}:3306
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-dbcity}
+      MARIADB_USER: ${DB_USER:-city}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-password}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-password}
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+  api:
+    depends_on:
+      - db
